@@ -1,7 +1,7 @@
 from flask import jsonify, request, make_response, current_app as app
 from user.services import user_service
 from user.schemas import UserSchema, UserLoginSchema
-
+from user.wrappers import token_required
 
 user_login_schema = UserLoginSchema()
 user_schema = UserSchema()
@@ -11,7 +11,6 @@ user_schema = UserSchema()
 def login() -> object:
     errors = user_login_schema.validate(request.json)
     if errors:
-
         return jsonify({
             "success": False,
             "message": str(errors)
@@ -22,7 +21,6 @@ def login() -> object:
     secret_key: str = app.config["SECRET_KEY"]
     authenticate_response: dict = user_service.authenticate_user(username, password, secret_key)
     if authenticate_response["success"]:
-
         return jsonify({
             "success": True,
             "username": authenticate_response["username"],
@@ -38,7 +36,6 @@ def login() -> object:
 def register() -> dict:
     errors = user_schema.validate(request.json)
     if errors:
-
         return jsonify({
             "success": False,
             "message": str(errors)
@@ -51,7 +48,6 @@ def register() -> dict:
 
     register_user_response: dict = user_service.register_user(name, username, password, secret_key)
     if register_user_response["success"]:
-
         return jsonify({
             "success": True,
             "username": register_user_response["username"],
@@ -63,3 +59,10 @@ def register() -> dict:
         "success": False,
         "message": "User registration failed"
     })
+
+
+@app.route('/user-details', methods=['GET'])
+@token_required
+def user_details(current_user):
+    print(current_user)
+    pass
