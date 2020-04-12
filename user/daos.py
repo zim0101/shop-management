@@ -54,13 +54,12 @@ class BlacklistTokenDAO:
     def get_blacklist_token(self, token: str) -> object:
         return db.session.query(self.model).filter_by(token=token).first()
 
-    @staticmethod
-    def create_blacklist_token(token: str) -> object:
+    def create_blacklist_token(self, token: str) -> object:
         """
         @param token:
         @return:
         """
-        token = BlacklistToken(token)
+        token = self.model(token)
         db.session.add(token)
         db.session.commit()
 
