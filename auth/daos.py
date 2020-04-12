@@ -1,4 +1,4 @@
-from user.models import User, BlacklistToken
+from auth.models import User, BlacklistToken
 from app import db
 
 

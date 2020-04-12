@@ -2,7 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from flask_bcrypt import Bcrypt
-from flask_migrate import Migrate, MigrateCommand
+from flask_migrate import Migrate
 
 
 # Globally accessible libraries
@@ -34,11 +34,11 @@ def create_app():
         # Import views
         from . import views
         from product.views import product
-        from user import auth
+        from auth import auth
 
         # Import models
         from product.models import Product
-        from user.models import User, BlacklistToken
+        from auth.models import User, BlacklistToken
         from category.models import Category, Subcategory
         from employee.models import Employee
 

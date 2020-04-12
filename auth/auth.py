@@ -1,7 +1,7 @@
 from flask import jsonify, request, current_app as app, Blueprint
-from user.services import user_service
-from user.validations import user_data_validation
-from user.wrappers import token_required
+from auth.services import user_service
+from auth.validations import user_data_validation
+from auth.wrappers import token_required
 
 
 secret_key = app.config["SECRET_KEY"]

@@ -1,8 +1,8 @@
 from functools import wraps
 import jwt
 from flask import jsonify, request, current_app as app
-from user.daos import user_dao
-from user.services import blacklist_token_service
+from auth.daos import user_dao
+from auth.services import blacklist_token_service
 
 
 def token_required(f):

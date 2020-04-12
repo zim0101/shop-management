@@ -1,5 +1,5 @@
 from flask import jsonify
-from user.schemas import UserSchema, UserLoginSchema
+from auth.schemas import UserSchema, UserLoginSchema
 
 
 user_login_schema = UserLoginSchema()
