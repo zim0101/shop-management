@@ -38,7 +38,7 @@ def create_app():
 
         # Import models
         from product.models import Product
-        from user.models import User
+        from user.models import User, BlacklistToken
         from category.models import Category, Subcategory
         from employee.models import Employee
 
@@ -46,5 +46,6 @@ def create_app():
 
         # Register Blueprints
         app.register_blueprint(product, url_prefix='/product')
+        app.register_blueprint(auth, url_prefix='/api/auth')
 
         return app

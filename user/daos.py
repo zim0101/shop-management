@@ -1,4 +1,4 @@
-from user.models import User
+from user.models import User, BlacklistToken
 from app import db
 
 
@@ -44,4 +44,28 @@ class UserDAO:
         return user
 
 
+class BlacklistTokenDAO:
+    def __init__(self, model):
+        """
+        @param model:
+        """
+        self.model = model
+
+    def get_blacklist_token(self, token: str) -> object:
+        return db.session.query(self.model).filter_by(token=token).first()
+
+    @staticmethod
+    def create_blacklist_token(token: str) -> object:
+        """
+        @param token:
+        @return:
+        """
+        token = BlacklistToken(token)
+        db.session.add(token)
+        db.session.commit()
+
+        return token
+
+
 user_dao: UserDAO = UserDAO(User)
+blacklist_token_dao: BlacklistTokenDAO = BlacklistTokenDAO(BlacklistToken)

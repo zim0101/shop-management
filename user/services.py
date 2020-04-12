@@ -1,6 +1,6 @@
 import jwt
 import datetime
-from user.daos import user_dao
+from user.daos import user_dao, blacklist_token_dao
 from app import bcrypt
 
 
@@ -27,8 +27,8 @@ class UserService:
         @return:
         """
         try:
-            token_life_time: datetime = datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
-            payload: dict = dict(user=username, exp=token_life_time)
+            token_life_time: datetime = datetime.datetime.utcnow() + datetime.timedelta(minutes=5)
+            payload: dict = dict(username=username, exp=token_life_time)
             token: bytes = jwt.encode(payload, secret_key)
 
             return dict(success=True, token=token.decode('UTF-8'))
@@ -64,5 +64,33 @@ class UserService:
 
         return dict(success=False)
 
+    @staticmethod
+    def logout_user(token: str) -> dict:
+        """
+        @param token:
+        @return:
+        """
+        blacklist_token = blacklist_token_dao.create_blacklist_token(token)
+        if blacklist_token:
+            return dict(success=True, message="User has been logged out successfully")
+
+        return dict(success=False, message="User logout failed!")
+
+
+class BlacklistTokenService:
+    @staticmethod
+    def in_blacklist(token: str) -> bool:
+        """
+        @param token:
+        @return:
+        """
+        token = blacklist_token_dao.get_blacklist_token(token)
+        if token is None:
+            return False
+
+        return True
+
 
 user_service: UserService = UserService()
+
+blacklist_token_service: BlacklistTokenService = BlacklistTokenService()

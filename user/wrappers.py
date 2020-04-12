@@ -2,19 +2,27 @@ from functools import wraps
 import jwt
 from flask import jsonify, request, current_app as app
 from user.daos import user_dao
+from user.services import blacklist_token_service
 
 
 def token_required(f):
+    """
+    @param f:
+    @return:
+    """
     @wraps(f)
     def decorator(*args, **kwargs):
 
         token = None
 
-        if 'x-access-tokens' in request.headers:
-            token = request.headers['x-access-tokens']
+        if 'Authorization' in request.headers:
+            token = request.headers['Authorization']
 
         if not token:
-            return jsonify({'message': 'a valid token is missing'})
+            return jsonify({'message': 'Invalid Token'})
+
+        if blacklist_token_service.in_blacklist(token):
+            return jsonify({'message': 'Token is in blacklist'})
 
         try:
             data = jwt.decode(token, app.config["SECRET_KEY"])
