@@ -34,7 +34,7 @@ def create_app():
         # Import views
         from . import views
         from product.views import product
-        from auth import auth
+        from auth.auth import auth
 
         # Import models
         from product.models import Product
