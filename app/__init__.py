@@ -33,19 +33,19 @@ def create_app():
     with app.app_context():
         # Import views
         from . import views
-        from product.views import product
+        from product.views.product_views import product
+        from product.views.category_views import category
+        from product.views.subcategory_views import subcategory
         from auth.auth import auth
 
         # Import models
-        from product.models import Product
-        from auth.models import User, BlacklistToken
-        from category.models import Category, Subcategory
-        from employee.models import Employee
 
         db.create_all()
 
         # Register Blueprints
-        app.register_blueprint(product, url_prefix='/product')
         app.register_blueprint(auth, url_prefix='/api/auth')
+        app.register_blueprint(product, url_prefix='/product')
+        app.register_blueprint(category, url_prefix='/category')
+        app.register_blueprint(subcategory, url_prefix='/subcategory')
 
         return app
