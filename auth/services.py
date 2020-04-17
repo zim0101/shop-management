@@ -1,7 +1,7 @@
 import jwt
 import datetime
-from auth.daos import user_dao, blacklist_token_dao
 from app import bcrypt
+from auth.daos import user_dao, blacklist_token_dao
 
 
 class UserService:

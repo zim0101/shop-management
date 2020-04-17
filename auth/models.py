@@ -6,6 +6,9 @@ from app.constants import EMAIL_VERIFIED_FALSE, USER_ROLE_SHOPKEEPER
 # ------------------------------------------- User Model ------------------------------------------
 
 class User(db.Model):
+    """
+        User Model
+    """
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -27,6 +30,8 @@ class User(db.Model):
         self.username = username
         self.password = password
 
+
+# ------------------------------------------- BlacklistToken Model ------------------------------------------
 
 class BlacklistToken(db.Model):
     """

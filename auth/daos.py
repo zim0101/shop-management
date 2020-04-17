@@ -1,5 +1,5 @@
-from auth.models import User, BlacklistToken
 from app import db
+from auth.models import User, BlacklistToken
 
 
 class UserDAO:
