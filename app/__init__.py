@@ -33,10 +33,10 @@ def create_app():
     with app.app_context():
         # Import views
         from . import views
+        from auth.auth import auth
         from product.views.product_views import product
         from product.views.category_views import category
         from product.views.subcategory_views import subcategory
-        from auth.auth import auth
 
         # Import models
 
@@ -44,8 +44,8 @@ def create_app():
 
         # Register Blueprints
         app.register_blueprint(auth, url_prefix='/api/auth')
-        app.register_blueprint(product, url_prefix='/product')
-        app.register_blueprint(category, url_prefix='/category')
-        app.register_blueprint(subcategory, url_prefix='/subcategory')
+        app.register_blueprint(product, url_prefix='/api/product')
+        app.register_blueprint(category, url_prefix='/api/category')
+        app.register_blueprint(subcategory, url_prefix='/api/subcategory')
 
         return app
