@@ -27,7 +27,8 @@ class UserService:
         @return:
         """
         try:
-            token_life_time: datetime = datetime.datetime.utcnow() + datetime.timedelta(minutes=5)
+            token_life_time: datetime = datetime.datetime.utcnow() \
+                                        + datetime.timedelta(minutes=5)
             payload: dict = dict(username=username, exp=token_life_time)
             token: bytes = jwt.encode(payload, secret_key)
 

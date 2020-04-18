@@ -20,7 +20,9 @@ class UserDAO:
         @param username:
         @return:
         """
-        return db.session.query(self.model).filter_by(username=username).first()
+        return db.session.query(self.model)\
+            .filter_by(username=username)\
+            .first()
 
     def get_user_by_id(self, user_id: int) -> object:
         """
