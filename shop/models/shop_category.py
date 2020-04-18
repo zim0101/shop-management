@@ -2,7 +2,7 @@ from app import db
 
 
 # ------------------------------------------- User Model ------------------------------------------
-class Category(db.Model):
+class ShopCategory(db.Model):
     """
         Shop Model
     """
