@@ -24,6 +24,11 @@ def create_app():
     if app.config['ENV'] == 'testing':
         app.config.from_object('config.Testing')
 
+    # Import models
+    from auth import models
+    from product.models import product, category, subcategory
+    from shop.models import shop, shop_category
+
     # Initialize Plugins
     db.init_app(app)
     marshmallow.init_app(app)
@@ -35,17 +40,9 @@ def create_app():
         from . import views
         from auth.auth import auth
         from product.views.product_views import product
-        from product.views.category_views import category
-        from product.views.subcategory_views import subcategory
-
-        # Import models
-
-        db.create_all()
 
         # Register Blueprints
         app.register_blueprint(auth, url_prefix='/api/auth')
         app.register_blueprint(product, url_prefix='/api/product')
-        app.register_blueprint(category, url_prefix='/api/category')
-        app.register_blueprint(subcategory, url_prefix='/api/subcategory')
 
         return app
