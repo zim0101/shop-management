@@ -78,5 +78,48 @@ class ShopDAO:
 
         return shops
 
+    def store_shop(self, name: str, user_id: int, category_id: int, address: str,
+                   size: int) -> object:
+        """
+        @param name: str
+        @param user_id: int
+        @param category_id: int
+        @param address: str
+        @param size: int
+        @return: object
+        """
+        shop = self.shop_model(name, user_id, category_id, address, size)
+        db.session.add(shop)
+        db.session.commit()
+
+        return shop
+
+    def update_shop(self, shop_id: int, name: str = None, category_id: int = None,
+                    address: str = None, size: int = None) -> object:
+        """
+        @param shop_id: int
+        @param name: str
+        @param category_id: int
+        @param address: str
+        @param size: int
+        @return: object
+        """
+        shop: object = self.get_shop_by_id(shop_id)
+
+        if shop is None:
+            return None
+        if name is not None:
+            shop.name = name
+        if category_id is not None:
+            shop.category_id = category_id
+        if address is not None:
+            shop.address = address
+        if size is not None:
+            shop.size = size
+
+        db.session.commit()
+
+        return shop
+
 
 shop_dao: ShopDAO = ShopDAO(Shop, ShopCategory)
