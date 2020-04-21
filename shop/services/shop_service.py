@@ -29,6 +29,13 @@ class ShopService:
 
         return dict(success=True, data=shops)
 
+    def get_shops_of_user(self, user_id: int) -> dict:
+        shops = self.dao.get_all_shops_by_user_id(user_id)
+        if shops is None:
+            return dict(success=False, message="Something went wrong")
+
+        return dict(success=True, data=shops)
+
     def store_shop(self, name: str, user_id: int, category_id: int,
                    address: str, size: int) -> dict:
         """
