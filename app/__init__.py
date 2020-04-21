@@ -40,9 +40,11 @@ def create_app():
         from . import views
         from auth.auth import auth
         from product.views.product_views import product
+        from shop.views.shop_view import shop
 
         # Register Blueprints
         app.register_blueprint(auth, url_prefix='/api/auth')
         app.register_blueprint(product, url_prefix='/api/product')
+        app.register_blueprint(shop, url_prefix='/api/shop')
 
         return app

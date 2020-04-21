@@ -37,7 +37,8 @@ class UserService:
 
             return dict(success=False, message=e)
 
-    def authenticate_user(self, username: str, password: str, secret_key: str) -> dict:
+    def authenticate_user(self, username: str, password: str,
+                          secret_key: str) -> dict:
         """
         @param username:
         @param password:
@@ -45,11 +46,16 @@ class UserService:
         @return:
         """
         if self.user_exist(username, password):
-            generate_token_response: dict = self.generate_api_token(username, secret_key)
-            return dict(success=True, username=username, token=generate_token_response["token"])
+            generate_token_response: dict = self.generate_api_token(
+                username,
+                secret_key
+            )
+            return dict(success=True, username=username,
+                        token=generate_token_response["token"])
         return dict(success=False)
 
-    def register_user(self, name: str, username: str, password: str, secret_key: str) -> dict:
+    def register_user(self, name: str, username: str, password: str,
+                      secret_key: str) -> dict:
         """
         @param name:
         @param username:
@@ -60,8 +66,15 @@ class UserService:
         password_hash = bcrypt.generate_password_hash(password)
         user = user_dao.create_user(name, username, password_hash)
         if user:
-            generate_token_response: dict = self.generate_api_token(username, secret_key)
-            return dict(success=True, username=username, token=generate_token_response["token"])
+            generate_token_response: dict = self.generate_api_token(
+                username,
+                secret_key
+            )
+            return dict(
+                success=True,
+                username=username,
+                token=generate_token_response["token"]
+            )
 
         return dict(success=False)
 
@@ -73,7 +86,10 @@ class UserService:
         """
         blacklist_token = blacklist_token_dao.create_blacklist_token(token)
         if blacklist_token:
-            return dict(success=True, message="User has been logged out successfully")
+            return dict(
+                success=True,
+                message="User has been logged out successfully"
+            )
 
         return dict(success=False, message="User logout failed!")
 

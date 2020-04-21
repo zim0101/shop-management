@@ -78,7 +78,8 @@ class ShopDAO:
 
         return shops
 
-    def store_shop(self, name: str, user_id: int, category_id: int, address: str,
+    def store_shop(self, name: str, user_id: int, category_id: int,
+                   address: str,
                    size: int) -> object:
         """
         @param name: str
@@ -94,7 +95,8 @@ class ShopDAO:
 
         return shop
 
-    def update_shop(self, shop_id: int, name: str = None, category_id: int = None,
+    def update_shop(self, shop_id: int, name: str = None,
+                    category_id: int = None,
                     address: str = None, size: int = None) -> object:
         """
         @param shop_id: int
@@ -108,18 +110,16 @@ class ShopDAO:
 
         if shop is None:
             return None
-        if name is not None:
-            shop.name = name
-        if category_id is not None:
-            shop.category_id = category_id
-        if address is not None:
-            shop.address = address
-        if size is not None:
-            shop.size = size
+
+        shop.name = name if name is not None else shop.name
+        shop.category_id = category_id if category_id is not None else \
+            shop.category_id
+        shop.address = address if address is not None else shop.address
+        shop.size = size if size is not None else shop.size
 
         db.session.commit()
 
         return shop
 
 
-shop_dao: ShopDAO = ShopDAO(Shop, ShopCategory)
+shop_dao = ShopDAO(Shop, ShopCategory)

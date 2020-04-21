@@ -2,7 +2,6 @@ from app import db
 from app.constants import SHOP_TYPE_SMALL
 
 
-# ------------------------------------------- User Model ------------------------------------------
 class Shop(db.Model):
     """
         Shop Model
@@ -16,9 +15,11 @@ class Shop(db.Model):
     address = db.Column(db.String(100), nullable=False)
     size = db.Column(db.SmallInteger, default=SHOP_TYPE_SMALL, nullable=False)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
-    updated_at = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
+    updated_at = db.Column(db.DateTime, server_default=db.func.now(),
+                           server_onupdate=db.func.now())
 
-    def __init__(self, name: str, user_id: int, category_id: int, address: str, size: int):
+    def __init__(self, name: str, user_id: int, category_id: int, address: str,
+                 size: int):
         """
         @param name: str
         @param user_id: int

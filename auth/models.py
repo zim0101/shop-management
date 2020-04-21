@@ -3,8 +3,6 @@ from app import db
 from app.constants import EMAIL_VERIFIED_FALSE, USER_ROLE_SHOPKEEPER
 
 
-# ------------------------------------------- User Model ------------------------------------------
-
 class User(db.Model):
     """
         User Model
@@ -16,9 +14,11 @@ class User(db.Model):
     username = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100), nullable=False)
     role = db.Column(db.Integer, nullable=False, default=USER_ROLE_SHOPKEEPER)
-    email_verified = db.Column(db.Integer, nullable=False, default=EMAIL_VERIFIED_FALSE)
+    email_verified = db.Column(db.Integer, nullable=False,
+                               default=EMAIL_VERIFIED_FALSE)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
-    updated_at = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
+    updated_at = db.Column(db.DateTime, server_default=db.func.now(),
+                           server_onupdate=db.func.now())
 
     def __init__(self, name: str, username: str, password: str):
         """
@@ -30,8 +30,6 @@ class User(db.Model):
         self.username = username
         self.password = password
 
-
-# ------------------------------------------- BlacklistToken Model ------------------------------------------
 
 class BlacklistToken(db.Model):
     """

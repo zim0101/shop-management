@@ -10,7 +10,8 @@ auth = Blueprint("auth", __name__)
 @auth.route('/login', methods=['POST'])
 def login() -> object:
     try:
-        validator: dict = user_data_validation.user_login_data_validation(request.json)
+        validator: dict = user_data_validation.user_login_data_validation(
+            request.json)
         if not validator["success"]:
             return jsonify(validator)
 
@@ -29,7 +30,8 @@ def login() -> object:
 @auth.route('/register', methods=['POST'])
 def register() -> dict:
     try:
-        validator: dict = user_data_validation.user_registration_data_validation(request.json)
+        validator: dict = user_data_validation \
+            .user_registration_data_validation(request.json)
         if not validator["success"]:
             return jsonify(validator)
 

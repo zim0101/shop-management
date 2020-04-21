@@ -1,4 +1,5 @@
-from shop.schemas.shop_category_schema import ShopCategoryCreateSchema, ShopCategoryEditSchema
+from shop.schemas.shop_category_schema import ShopCategoryCreateSchema, \
+    ShopCategoryEditSchema
 
 
 class ShopCategoryDataValidation:
@@ -36,5 +37,8 @@ class ShopCategoryDataValidation:
         return dict(success=True)
 
 
-shop_category_data_validation: ShopCategoryDataValidation = ShopCategoryDataValidation(ShopCategoryCreateSchema,
-                                                                                       ShopCategoryEditSchema)
+shop_category_data_validation: ShopCategoryDataValidation = \
+    ShopCategoryDataValidation(
+        ShopCategoryCreateSchema,
+        ShopCategoryEditSchema
+    )
